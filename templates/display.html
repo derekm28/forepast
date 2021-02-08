@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Forepast Weather Report{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <h1 class='text-center container-fluid'>{% block content %}Forepast Weather Report{% endblock %}</h1>
+    <h2 class='text-center'>Bringing weather of the past to your present!</h2>
+    <h3 class='text-center'>Enter date to see what the forecast was for selected date.</h3>
+
+    <br>
+
+    <ul>
+        <h2>Popular U.S. Locations:</h2>
+    </ul>
+
+
+    <form class="row g-3" action="/city">
+        <div class="col-auto">
+            <ul>
+          <label for="input" name="New York, NY" location="New York, NY" class="col-form-label me-4">New York, NY</label>
+        </div>
+        <div class="col-auto">
+          <input for="location" value="" name="New York, NY" location="New York, NY" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+    </form>
+
+    <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">San Francisco, CA</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="San Francisco, CA" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">Washington, D.C</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="Washington, D.C." type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">Miami, FL</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="Miami, FL" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">Atlanta, GA</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="Atlanta, GA" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">Houston, TX</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="Houston, TX" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">San Diego, CA</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="San Diego, CA" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+      <form class='row g-3'>
+        <div class="col-auto">
+            <ul>
+          <label for="location" class="col-form-label">Las Vegas, NV</label>
+        </div>
+        <div class="col-auto">
+          <input value="" name="Las Vegas" type="date" class="form-control" id="date">
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Get Info</button>
+        </ul>
+        </div>
+      </form>
+
+    <br>
+
+    <h4><ul>For locations not Listed above enter location and date below.</ul></h4>
+
+    <form class action="/city" method="POST">
+        <ul>
+            <div class="mb-3 col-sm-2">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" aria-describedby="location" name="location">
+            </div>
+            <div class="mb-3 col-sm-2">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date">
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </ul>
+
+    </form>
+
+
+
+
+</body>
+
+</html>
