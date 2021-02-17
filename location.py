@@ -1,6 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 import requests
-from models import connect_db, db
+
+db = SQLAlchemy()
+
+def connect_db(app):
+    db.app = app
+    db.init_app(app)
 
 
 class Location(db.Model):
@@ -13,6 +18,15 @@ class Location(db.Model):
     type = db.Column(db.String, nullable=False)
     timezone = db.Column(db.TEXT, nullable=False)
     woeid = db.Column(db.INTEGER, nullable=False)
+
+    # def serialize():
+    #     return{
+    #         'id' = self.id,
+    #         'city' = self.city,
+    #         'type' = self.type,
+    #         'timezone' = self.timezone,
+    #         'woeid' = self.woeid
+    #     }
 
     def __repr__(self):
         return f'<Location {self.id} location={self.location} type={self.location_type} timezone={self.timezone} woeid={self.woeid}'

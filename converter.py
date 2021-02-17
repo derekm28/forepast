@@ -1,6 +1,6 @@
 
 
-resp = requests.get('http://metaweather.com/api/location/search', params = {'term': '', 'limit': 1})
+resp = requests.get('http://www.metaweather.com/api/location/search', params = {'term': '', 'limit': 1})
 
 
 class Converter():

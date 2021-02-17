@@ -1,9 +1,9 @@
 {% extends 'display.html' %}
-{% block title %}Forepast Weather Report{ %endblock% }
+{% block title %}Forepast Weather Report{% endblock %}
 <body>
     <h1>Weather in {{location}} on {{date}} was....</h1>
         {% if title %}
-            <H3>Title: {% title %}</H3>
+            <H3>Title: {{title}}</H3>
         {% endif %}
 
 </body>

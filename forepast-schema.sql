@@ -13,7 +13,7 @@ CREATE TABLE locations
     city TEXT NOT NULL,
     type TEXT NOT NULL,
     timezone TEXT,
-    woeid INTEGER
+    woeid INTEGER NOT NULL
 )
 CREATE TABLE weather_info
 (
