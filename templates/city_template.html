@@ -1,10 +1,88 @@
-{% extends 'display.html' %}
-{% block title %}Forepast Weather Report{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Forepast Weather Report{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
 <body>
-    <h1>Weather in {{location}} on {{date}} was....</h1>
-        {% if title %}
-            <H3>Title: {{title}}</H3>
-        {% endif %}
+    <p class='text-center container-fluid'>{% block content %}
+        City: {{ title }}
+        <br>
+        City ID: {{ woeid }}
+        <br>
+        Low Temp: {{ min_temp }}
+        <br>
+        High Temp: {{ max_temp }}
+        <br>
+        Date: {{ date }}
+        <br>
+        Humidity: {{ humidity }}%
+        <br>
+        Wind Speed: {{ wind_speed }}
+        <br>
+        Wind Direction: {{ wind_direction }}
+        <br>
+        Air Pressure: {{ air_pressure }}
+        <br>
+        Visibility: {{ visibility }}
+        {% endblock %}
+    </p>
+
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Weather</th>
+            <th scope="col">Results</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">City</th>
+            <td>{{ title }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Date</th>
+            <td colspan="2">{{ date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Low Temp</th>
+            <td>{{ min_temp }}</td>
+          </tr>
+          <tr>
+            <th scope="row">High Temp</th>
+            <td colspan="2">{{ max_temp }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Humidity</th>
+            <td colspan="2">{{ humidity }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Wind Speed</th>
+            <td colspan="2">{{ wind_speed }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Wind Direction</th>
+            <td colspan="2">{{ wind_direction }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Air Pressure</th>
+            <td colspan="2">{{ air_pressure }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Visibility</th>
+            <td colspan="2">{{ visibility }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
 
 </body>
 </html>

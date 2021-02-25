@@ -27,7 +27,7 @@ logger = logging.getLogger()
 #converter = Converter()
 
 
-@app.route('/home', methods=['GET'])
+@app.route('/', methods=['GET'])
 def homepage():
     """shows list of popular US locations
     with links to more information about each city"""
@@ -36,8 +36,6 @@ def homepage():
     """on submit requests information for city and selected date
     shows results on template page"""
 
-
-    #location = Location.query.all(location_id)
     return render_template('display.html')
 
 @app.route('/city', methods=['GET'])
@@ -46,31 +44,55 @@ def show_city():
 
     location = request.args.get('location')
     date = request.args.get('date')
-    resp = requests.get(f"{API_BASE_URL}/search", params={'query': location, 'limit': 1})
-    logger.info(type(resp))
+    resp_city = requests.get(f"{API_BASE_URL}/search", params={'query': location, 'limit': 1})
+    logger.info(type(resp_city))
 
 
-    data = resp.json()
-    print('.........########1#######.....')
-    print(data)
-    print('.........#########2#########.....')
-    print(data[0]['title'])
+    data = resp_city.json()
 
     title = data[0]['title']
+    print(title)
+    woeid = data[0]['woeid']
+
+    resp_weather = requests.get(f"{API_BASE_URL}/{woeid}/{date}")
+    logger.info(type(resp_weather))
+    data_weather = resp_weather.json()
+
+    print('.........&&&&&&&&&.....')
+    print(data_weather)
+    print('.........&&&&&&.....')
+
+    min_temp = data_weather[0]['min_temp']
+    max_temp = data_weather[0]['max_temp']
+    date = data_weather[0]['applicable_date']
+    humidity = data_weather[0]['humidity']
+    wind_speed = data_weather[0]['wind_speed']
+    wind_direction = data_weather[0]['wind_direction']
+    air_pressure = data_weather[0]['air_pressure']
+    visibility = data_weather[0]['visibility']
 
 
 
-    # info = request.form
-    # location = resp(data.title.woeid)
-    # date = resp(data.applicable_date)
+    print('##############temp##########################')
+    print(min_temp)
+    print(max_temp)
+
+    fahrenheit_min_temp = f'{min_temp * 9/5 + 32 }'
+    print('#######################FARENHEIT TEMP############')
+    print(fahrenheit_min_temp)
 
 
-
-    #city = Location.query.get_or_404(id)
-
-    #return jsonify(city=city.serialize())
-
-    return render_template('city_template.html')
+    return render_template('city_template.html',
+        title = title,
+        woeid = woeid,
+        min_temp = min_temp,
+        max_temp = max_temp,
+        date = date,
+        humidity = humidity,
+        wind_speed = wind_speed,
+        wind_direction = wind_direction,
+        air_pressure = air_pressure,
+        visibility = visibility)
 
 
 
