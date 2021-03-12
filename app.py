@@ -5,6 +5,7 @@ import requests
 import json
 import logging
 from models import Weather, connect_db, db
+import os
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///forepast'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = 'ihaveasecret'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'ihaveasecret')
 
 debug = DebugToolbarExtension(app)
 connect_db(app)
