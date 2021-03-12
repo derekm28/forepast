@@ -96,3 +96,9 @@ def show_city():
         wind_direction = wind_direction,
         air_pressure = air_pressure,
         visibility = visibility)
+
+@app.route('/', methods=['GET'])
+def back_button():
+    """goes back to previous page"""
+
+    return render_template('display.html')
