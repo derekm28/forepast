@@ -10,25 +10,23 @@ CREATE DATABASE forepast;
 CREATE TABLE locations
 (
     id INTEGER NOT NULL,
-    city TEXT NOT NULL,
-    type TEXT NOT NULL,
-    timezone TEXT,
     woeid INTEGER NOT NULL
 )
 CREATE TABLE weather_info
 (
-  name TEXT NOT NULL,
-  type TEXT NOT NULL,
+  id INTEGER NOT NULL,
+  city_name TEXT NOT NULL,
+  city_type TEXT NOT NULL,
   applicable_date DATE NOT NULL,
-  latt_long FLOAT,
-  time DATETIME,
+  date_time DATETIME,
   wind_speed FLOAT,
   wind_direction TEXT,
-  (min|max|the)_temp INTEGER
+  the_temp INTEGER,
+  max_temp INTEGER,
+  min_temp INTEGER,
   air_pressure FLOAT,
   humidity FLOAT NOT NULL,
   visibility FLOAT,
-
 );
 
 -- INSERT INTO locations

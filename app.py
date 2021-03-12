@@ -1,9 +1,10 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
+from sqlalchemy.exc import IntegrityError
 import requests
 import json
 import logging
-from location import Location, db, connect_db
+from models import Weather, connect_db, db
 
 app = Flask(__name__)
 
@@ -14,17 +15,11 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'ihaveasecret'
 
 debug = DebugToolbarExtension(app)
-
 connect_db(app)
-db.create_all
 
 API_BASE_URL = 'http://www.metaweather.com/api/location'
 
 logger = logging.getLogger()
-
-#data = resp.json()
-
-#converter = Converter()
 
 
 @app.route('/', methods=['GET'])
@@ -50,20 +45,17 @@ def show_city():
 
     data = resp_city.json()
 
-    title = data[0]['title']
-    print(title)
-    woeid = data[0]['woeid']
+    location_name = data[0]['title']
+    location_type = data[0]['location_type']
+    location_woeid = data[0]['woeid']
 
-    resp_weather = requests.get(f"{API_BASE_URL}/{woeid}/{date}")
+    resp_weather = requests.get(f"{API_BASE_URL}/{location_woeid}/{date}")
     logger.info(type(resp_weather))
     data_weather = resp_weather.json()
 
-    print('.........&&&&&&&&&.....')
-    print(data_weather)
-    print('.........&&&&&&.....')
-
-    min_temp = data_weather[0]['min_temp']
-    max_temp = data_weather[0]['max_temp']
+    min_temp = data_weather[0]['min_temp'] * 9//5 + 32
+    max_temp = data_weather[0]['max_temp'] * 9//5 + 32
+    the_temp = data_weather[0]['the_temp'] * 9//5 + 32
     date = data_weather[0]['applicable_date']
     humidity = data_weather[0]['humidity']
     wind_speed = data_weather[0]['wind_speed']
@@ -72,10 +64,20 @@ def show_city():
     visibility = data_weather[0]['visibility']
 
 
-
-    print('##############temp##########################')
-    print(min_temp)
-    print(max_temp)
+    new_weather_info = Weather(woeid=location_woeid,
+                               location = location_name,
+                               location_type = location_type,
+                               applicable_date = date,
+                               wind_speed = wind_speed,
+                               wind_direction = wind_direction,
+                               the_temp = the_temp,
+                               max_temp = max_temp,
+                               min_temp = min_temp,
+                               air_pressure = air_pressure,
+                               humidity = humidity,
+                               visibility = visibility)
+    db.session.add(new_weather_info)
+    db.session.commit()
 
     fahrenheit_min_temp = f'{min_temp * 9/5 + 32 }'
     print('#######################FARENHEIT TEMP############')
@@ -83,8 +85,8 @@ def show_city():
 
 
     return render_template('city_template.html',
-        title = title,
-        woeid = woeid,
+        title = location_name,
+        woeid = location_woeid,
         min_temp = min_temp,
         max_temp = max_temp,
         date = date,
@@ -93,21 +95,3 @@ def show_city():
         wind_direction = wind_direction,
         air_pressure = air_pressure,
         visibility = visibility)
-
-
-
-@app.route('/city', methods = ['POST'])
-def create_city():
-    """inserts city search results data into db"""
-
-    location = request.args.get('location')
-    resp = requests.get(f"{API_BASE_URL}/search", params={'query': location, 'limit': 1})
-    data = resp.json()
-    city = data[0]['title']
-    type = data[1]['location_type']
-    woeid = data[2]['woeid']
-
-    new_location = Location(city = city, type = type, woeid = woeid)
-
-    db.session.add_all(new_location)
-    db.session.commit()

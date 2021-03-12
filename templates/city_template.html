@@ -10,25 +10,8 @@
 </head>
 <body>
     <p class='text-center container-fluid'>{% block content %}
-        City: {{ title }}
-        <br>
-        City ID: {{ woeid }}
-        <br>
-        Low Temp: {{ min_temp }}
-        <br>
-        High Temp: {{ max_temp }}
-        <br>
-        Date: {{ date }}
-        <br>
-        Humidity: {{ humidity }}%
-        <br>
-        Wind Speed: {{ wind_speed }}
-        <br>
-        Wind Direction: {{ wind_direction }}
-        <br>
-        Air Pressure: {{ air_pressure }}
-        <br>
-        Visibility: {{ visibility }}
+      <h1 class="text-center">Forepast Weather Report</h1>
+      <h2 class="text-center">Bringing weather of the past to your present!</h2>
         {% endblock %}
     </p>
 
@@ -50,11 +33,11 @@
           </tr>
           <tr>
             <th scope="row">Low Temp</th>
-            <td>{{ min_temp }}</td>
+            <td>{{ min_temp }}° F</td>
           </tr>
           <tr>
             <th scope="row">High Temp</th>
-            <td colspan="2">{{ max_temp }}</td>
+            <td colspan="2">{{ max_temp }}° F</td>
           </tr>
           <tr>
             <th scope="row">Humidity</th>
