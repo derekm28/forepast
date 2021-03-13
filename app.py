@@ -59,10 +59,10 @@ def show_city():
     the_temp = data_weather[0]['the_temp'] * 9//5 + 32
     date = data_weather[0]['applicable_date']
     humidity = data_weather[0]['humidity']
-    wind_speed = data_weather[0]['wind_speed']
-    wind_direction = data_weather[0]['wind_direction']
-    air_pressure = data_weather[0]['air_pressure']
-    visibility = data_weather[0]['visibility']
+    wind_speed = round(data_weather[0]['wind_speed'])
+    wind_direction = round(data_weather[0]['wind_direction'])
+    air_pressure = round(data_weather[0]['air_pressure'])
+    visibility = round(data_weather[0]['visibility'])
 
 
     new_weather_info = Weather(woeid=location_woeid,
