@@ -101,4 +101,4 @@ def show_city():
 def back_button():
     """goes back to previous page"""
 
-    return render_template('display.html')
+    return redirect('display.html')
